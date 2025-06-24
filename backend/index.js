@@ -13,25 +13,18 @@ const PORT = process.env.PORT || 3000;
 
 async function getGoogleSheetsClient() {
     const scopes = ['https://www.googleapis.com/auth/spreadsheets'];
-    let auth;
-    if (process.env.GOOGLE_CREDENTIALS) {
-        // Parse credentials from environment variable
-        const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS.replace(/\\n/g, '\n'));
-        auth = new google.auth.GoogleAuth({
-            credentials: credentials,
-            scopes: scopes,
-        });
-    } else {
-        // Fallback to local file for development
-        auth = new google.auth.GoogleAuth({
-            keyFile: 'credentials.json',
-            scopes: scopes,
-        });
-    }
+    
+    const auth = new google.auth.GoogleAuth({
+        keyFile: '/etc/secrets/credentials.json', // Path to your credentials file
+        scopes: scopes,
+    });
+
     // Create a client instance for authentication
     const authClient = await auth.getClient();
+
     // Create the Google Sheets API client
     const sheets = google.sheets({ version: 'v4', auth: authClient });
+    
     return sheets;
 }
 
