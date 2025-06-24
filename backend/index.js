@@ -15,7 +15,7 @@ async function getGoogleSheetsClient() {
     const scopes = ['https://www.googleapis.com/auth/spreadsheets'];
     
     const auth = new google.auth.GoogleAuth({
-        keyFile: '/etc/secrets/credentials.json', // Path to your credentials file
+        keyFile: '/etc/secrets/credentials-google.json', // Path to your credentials file
         scopes: scopes,
     });
 
